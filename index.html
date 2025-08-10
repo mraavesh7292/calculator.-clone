@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>calculator by aavesh</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap');
+
+    body {
+      background: linear-gradient(135deg, #1e1e2f, #2a2a3d);
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator-highfeve {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      width: 320px;
+    }
+
+    .display {
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 2.5rem;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: right;
+      margin-bottom: 15px;
+      word-wrap: break-word;
+      min-height: 60px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: none;
+      padding: 15px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .operator {
+      background: #ff9500;
+    }
+
+    .operator:hover {
+      background: #e58a00;
+    }
+
+    .clear {
+      background: #ff3b30;
+    }
+
+    .clear:hover {
+      background: #e03027;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <body>
+
+    <h1
+      style="color:#fff; text-align:center; margin-bottom: 30px; font-family:'Montserrat',sans-serif; font-weight:800;">
+      Calculator by Aavesh
+    </h1>
+
+
+
+
+    <div class="calculator-highfeve">
+      <div class="display" id="display">0</div>
+      <div class="buttons">
+        <button class="btn clear" onclick="clearDisplay()">C</button>
+        <button class="btn" onclick="inputValue('(')">(</button>
+        <button class="btn" onclick="inputValue(')')">)</button>
+        <button class="btn operator" onclick="inputValue('÷')">÷</button>
+
+        <button class="btn" onclick="inputValue('7')">7</button>
+        <button class="btn" onclick="inputValue('8')">8</button>
+        <button class="btn" onclick="inputValue('9')">9</button>
+        <button class="btn operator" onclick="inputValue('×')">×</button>
+
+        <button class="btn" onclick="inputValue('4')">4</button>
+        <button class="btn" onclick="inputValue('5')">5</button>
+        <button class="btn" onclick="inputValue('6')">6</button>
+        <button class="btn operator" onclick="inputValue('-')">−</button>
+
+        <button class="btn" onclick="inputValue('1')">1</button>
+        <button class="btn" onclick="inputValue('2')">2</button>
+        <button class="btn" onclick="inputValue('3')">3</button>
+        <button class="btn operator" onclick="inputValue('+')">+</button>
+
+        <button class="btn" onclick="inputValue('0')">0</button>
+        <button class="btn" onclick="inputValue('.')">.</button>
+        <button class="btn" onclick="backspace()">⌫</button>
+        <button class="btn operator" onclick="calculateResult()">=</button>
+      </div>
+    </div>
+
+    <script>
+      let display = document.getElementById("display");
+
+      function inputValue(val) {
+        if (display.innerText === "0" && val !== ".") {
+          display.innerText = val;
+        } else {
+          display.innerText += val;
+        }
+      }
+
+      function clearDisplay() {
+        display.innerText = "0";
+      }
+
+      function backspace() {
+        if (display.innerText.length > 1) {
+          display.innerText = display.innerText.slice(0, -1);
+        } else {
+          display.innerText = "0";
+        }
+      }
+
+      function calculateResult() {
+        try {
+          let expression = display.innerText
+            .replace(/×/g, "*")
+            .replace(/÷/g, "/")
+            .replace(/−/g, "-");
+
+          let result = eval(expression);
+
+          if (result === Infinity || isNaN(result)) {
+            display.innerText = "Error";
+          } else {
+            display.innerText = result;
+          }
+        } catch {
+          display.innerText = "Error";
+        }
+      }
+    </script>
+  </body>
+
+</html>
