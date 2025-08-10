@@ -11,10 +11,12 @@
       background: linear-gradient(135deg, #1e1e2f, #2a2a3d);
       font-family: 'Montserrat', sans-serif;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
+      transition: all 0.3s ease;
     }
 
     .calculator-highfeve {
@@ -24,6 +26,7 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
       width: 320px;
+      transition: background 0.3s ease;
     }
 
     .display {
@@ -36,6 +39,7 @@
       margin-bottom: 15px;
       word-wrap: break-word;
       min-height: 60px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .buttons {
@@ -52,7 +56,7 @@
       font-size: 1.2rem;
       border-radius: 10px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, color 0.3s ease;
     }
 
     .btn:hover {
@@ -74,94 +78,137 @@
     .clear:hover {
       background: #e03027;
     }
+
+    /* Light Mode Styles */
+    body.light {
+      background: linear-gradient(135deg, #f0f0f0, #dcdcdc);
+      color: #000;
+    }
+
+    body.light .calculator-highfeve {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    body.light .display {
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+    }
+
+    body.light .btn {
+      background: rgba(0, 0, 0, 0.1);
+      color: #000;
+    }
+
+    body.light .btn:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Toggle Button */
+    .theme-toggle {
+      margin-bottom: 20px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #4cafef;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background: #2b89d9;
+    }
   </style>
 </head>
 
 <body>
 
+  <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark / ☀ Light</button>
 
-  <body>
+  <h1
+    style="color:#fff; text-align:center; margin-bottom: 30px; font-family:'Montserrat',sans-serif; font-weight:800;">
+    Calculator by Aavesh
+  </h1>
 
-    <h1
-      style="color:#fff; text-align:center; margin-bottom: 30px; font-family:'Montserrat',sans-serif; font-weight:800;">
-      Calculator by Aavesh
-    </h1>
+  <div class="calculator-highfeve">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="btn clear" onclick="clearDisplay()">C</button>
+      <button class="btn" onclick="inputValue('(')">(</button>
+      <button class="btn" onclick="inputValue(')')">)</button>
+      <button class="btn operator" onclick="inputValue('÷')">÷</button>
 
+      <button class="btn" onclick="inputValue('7')">7</button>
+      <button class="btn" onclick="inputValue('8')">8</button>
+      <button class="btn" onclick="inputValue('9')">9</button>
+      <button class="btn operator" onclick="inputValue('×')">×</button>
 
+      <button class="btn" onclick="inputValue('4')">4</button>
+      <button class="btn" onclick="inputValue('5')">5</button>
+      <button class="btn" onclick="inputValue('6')">6</button>
+      <button class="btn operator" onclick="inputValue('-')">−</button>
 
+      <button class="btn" onclick="inputValue('1')">1</button>
+      <button class="btn" onclick="inputValue('2')">2</button>
+      <button class="btn" onclick="inputValue('3')">3</button>
+      <button class="btn operator" onclick="inputValue('+')">+</button>
 
-    <div class="calculator-highfeve">
-      <div class="display" id="display">0</div>
-      <div class="buttons">
-        <button class="btn clear" onclick="clearDisplay()">C</button>
-        <button class="btn" onclick="inputValue('(')">(</button>
-        <button class="btn" onclick="inputValue(')')">)</button>
-        <button class="btn operator" onclick="inputValue('÷')">÷</button>
-
-        <button class="btn" onclick="inputValue('7')">7</button>
-        <button class="btn" onclick="inputValue('8')">8</button>
-        <button class="btn" onclick="inputValue('9')">9</button>
-        <button class="btn operator" onclick="inputValue('×')">×</button>
-
-        <button class="btn" onclick="inputValue('4')">4</button>
-        <button class="btn" onclick="inputValue('5')">5</button>
-        <button class="btn" onclick="inputValue('6')">6</button>
-        <button class="btn operator" onclick="inputValue('-')">−</button>
-
-        <button class="btn" onclick="inputValue('1')">1</button>
-        <button class="btn" onclick="inputValue('2')">2</button>
-        <button class="btn" onclick="inputValue('3')">3</button>
-        <button class="btn operator" onclick="inputValue('+')">+</button>
-
-        <button class="btn" onclick="inputValue('0')">0</button>
-        <button class="btn" onclick="inputValue('.')">.</button>
-        <button class="btn" onclick="backspace()">⌫</button>
-        <button class="btn operator" onclick="calculateResult()">=</button>
-      </div>
+      <button class="btn" onclick="inputValue('0')">0</button>
+      <button class="btn" onclick="inputValue('.')">.</button>
+      <button class="btn" onclick="backspace()">⌫</button>
+      <button class="btn operator" onclick="calculateResult()">=</button>
     </div>
+  </div>
 
-    <script>
-      let display = document.getElementById("display");
+  <script>
+    let display = document.getElementById("display");
 
-      function inputValue(val) {
-        if (display.innerText === "0" && val !== ".") {
-          display.innerText = val;
-        } else {
-          display.innerText += val;
-        }
+    function inputValue(val) {
+      if (display.innerText === "0" && val !== ".") {
+        display.innerText = val;
+      } else {
+        display.innerText += val;
       }
+    }
 
-      function clearDisplay() {
+    function clearDisplay() {
+      display.innerText = "0";
+    }
+
+    function backspace() {
+      if (display.innerText.length > 1) {
+        display.innerText = display.innerText.slice(0, -1);
+      } else {
         display.innerText = "0";
       }
+    }
 
-      function backspace() {
-        if (display.innerText.length > 1) {
-          display.innerText = display.innerText.slice(0, -1);
-        } else {
-          display.innerText = "0";
-        }
-      }
+    function calculateResult() {
+      try {
+        let expression = display.innerText
+          .replace(/×/g, "*")
+          .replace(/÷/g, "/")
+          .replace(/−/g, "-");
 
-      function calculateResult() {
-        try {
-          let expression = display.innerText
-            .replace(/×/g, "*")
-            .replace(/÷/g, "/")
-            .replace(/−/g, "-");
+        let result = eval(expression);
 
-          let result = eval(expression);
-
-          if (result === Infinity || isNaN(result)) {
-            display.innerText = "Error";
-          } else {
-            display.innerText = result;
-          }
-        } catch {
+        if (result === Infinity || isNaN(result)) {
           display.innerText = "Error";
+        } else {
+          display.innerText = result;
         }
+      } catch {
+        display.innerText = "Error";
       }
-    </script>
-  </body>
+    }
 
+    function toggleTheme() {
+      document.body.classList.toggle("light");
+    }
+  </script>
+</body>
 </html>
+
+
+
