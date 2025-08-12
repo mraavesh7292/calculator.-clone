@@ -9,180 +9,307 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
-  :root {
-  --main-bg: linear-gradient(135deg, #4a3f72 0%, #355c7d 100%);
-  --main-glass: rgba(255, 255, 255, 0.12);
-  --main-shadow: 0 8px 32px 0 rgba(58, 72, 114, 0.35);
-  --main-border: 2.5px solid #8574b450;
-  --accent: #7c6fc0;
-  --op: #71b3d6;
-  --error: #e94e4e;
-  --num-bg: rgba(255, 255, 255, 0.15);
-  --btn-shadow: 0 2px 12px #71b3d680;
-  --btn-hover: #99c2ff;
-  --font: 'Montserrat', Arial, sans-serif;
-}
+    :root {
+      --main-bg: linear-gradient(135deg, #4b3f72 0%, #356194 100%);
+      --main-glass: rgba(255, 255, 255, 0.12);
+      --main-shadow: 0 8px 32px 0 rgba(54, 69, 111, 0.35);
+      --main-border: 2.5px solid #877dcf50;
+      --accent: #877dcf;
+      --op: #70a9e0;
+      --error: #e94e4e;
+      --num-bg: rgba(255, 255, 255, 0.18);
+      --btn-shadow: 0 2px 12px #70a9e080;
+      --btn-hover: #92c0ff;
+      --font: 'Montserrat', Arial, sans-serif;
+    }
 
-body {
-  background: radial-gradient(circle at 90% 10%, #9acffb 0%, #38598b 50%, transparent 80%),
-              radial-gradient(circle at 20% 90%, #7c6fc0 0%, #2b3f72 50%, transparent 80%),
-              var(--main-bg);
-  color: #e5e8f7;
-}
+    body {
+      background: radial-gradient(circle at 90% 10%, #92c0ff 0%, #2a5ea6 50%, transparent 80%),
+        radial-gradient(circle at 20% 90%, #877dcf 0%, #2e2a5b 50%, transparent 80%), var(--main-bg);
+      font-family: var(--font);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.7s;
+      color: #e6e9fa;
+    }
 
-.calculator-highfeve {
-  background: var(--main-glass);
-  border-radius: 28px;
-  box-shadow: var(--main-shadow);
-  border: var(--main-border);
-  backdrop-filter: blur(14px) saturate(1.04);
-  -webkit-backdrop-filter: blur(14px) saturate(1.04);
-  width: 340px;
-  padding: 28px 20px 22px 20px;
-  transition: background 0.3s;
-  position: relative;
-  z-index: 1;
-}
+    .theme-toggle {
+      margin-bottom: 26px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #70a9e0 0%, #877dcf 100%);
+      color: #1b1b2f;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 12px #70a9e088;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.15s;
+      outline: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.display {
-  background: linear-gradient(90deg, #536a9d 0%, #71b3d640 100%);
-  color: #dbeaff;
-  font-weight: 700;
-  font-size: 2.4rem;
-  padding: 16px 12px;
-  border-radius: 12px;
-  text-align: right;
-  margin-bottom: 18px;
-  min-height: 56px;
-  letter-spacing: 1px;
-  word-break: break-all;
-  box-shadow: 0 2px 10px #71b3d640;
-  border: 1.5px solid #7c6fc070;
-  transition: background 0.3s, color 0.3s;
-}
+    .theme-toggle:hover,
+    .theme-toggle:focus {
+      background: linear-gradient(90deg, #92c0ff 0%, #6a5abb 100%);
+      color: #fff;
+      transform: translateY(-2px) scale(1.05);
+    }
 
-.btn {
-  background: var(--num-bg);
-  color: #dbeeff;
-  border: none;
-  padding: 15px;
-  font-size: 1.25rem;
-  border-radius: 12px;
-  cursor: pointer;
-  font-family: var(--font);
-  font-weight: 700;
-  box-shadow: var(--btn-shadow);
-  transition: background 0.18s, color 0.26s, transform 0.12s;
-}
+    h1 {
+      background: linear-gradient(90deg, #70a9e0, #877dcf 70%);
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      font-size: 2.2rem;
+      font-family: var(--font);
+      font-weight: 800;
+      margin-bottom: 32px;
+      text-align: center;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 14px #6a5abb70;
+      user-select: none;
+    }
 
-.btn:hover,
-.btn:focus {
-  background: var(--btn-hover);
-  color: #1b1b2f;
-  box-shadow: 0 4px 20px #99c2ff80;
-}
+    .calculator-highfeve {
+      background: var(--main-glass);
+      border-radius: 28px;
+      box-shadow: var(--main-shadow);
+      border: var(--main-border);
+      backdrop-filter: blur(14px) saturate(1.04);
+      -webkit-backdrop-filter: blur(14px) saturate(1.04);
+      width: 340px;
+      padding: 28px 20px 22px 20px;
+      transition: background 0.3s;
+      position: relative;
+      z-index: 1;
+      animation: pop-in 0.6s cubic-bezier(.55, 1.4, .5, 1) 1;
+    }
 
-.btn.operator {
-  background: linear-gradient(90deg, #71b3d6 0%, #7c6fc0 100%);
-  color: #1b1b2f;
-  font-weight: bold;
-  box-shadow: 0 2px 12px #71b3d670;
-  font-size: 1.23rem;
-  transition: background 0.2s, color 0.2s;
-}
+    @keyframes pop-in {
+      0% {
+        transform: scale(0.92) translateY(30px);
+        opacity: 0;
+      }
 
-.btn.operator:hover,
-.btn.operator:focus {
-  background: linear-gradient(90deg, #7c6fc0 0%, #71b3d6 100%);
-  color: #fff;
-  box-shadow: 0 4px 16px #7c6fc090;
-}
+      80% {
+        transform: scale(1.04) translateY(-6px);
+      }
 
-.btn.clear {
-  background: linear-gradient(90deg, #e94e4e 0%, #7c6fc0 100%);
-  color: #fff;
-  font-weight: bold;
-  box-shadow: 0 2px 12px #e94e4e80;
-  font-size: 1.13rem;
-}
+      100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
 
-.btn.clear:hover,
-.btn.clear:focus {
-  background: linear-gradient(90deg, #7c6fc0 0%, #e94e4e 100%);
-  color: #fff;
-  box-shadow: 0 4px 16px #e94e4e90;
-}
+    .display {
+      background: linear-gradient(90deg, #4a4e82 0%, #70a9e040 100%);
+      color: #d0e5ff;
+      font-size: 2.4rem;
+      font-family: var(--font);
+      padding: 16px 12px;
+      border-radius: 12px;
+      text-align: right;
+      margin-bottom: 18px;
+      min-height: 56px;
+      letter-spacing: 1px;
+      word-break: break-all;
+      box-shadow: 0 2px 10px #70a9e040;
+      border: 1.5px solid #877dcf70;
+      transition: background 0.3s, color 0.3s;
+      font-weight: 700;
+      user-select: all;
+    }
 
-/* Light Theme tweaks */
-body.light {
-  background: radial-gradient(circle at 90% 10%, #c0d8ff 0%, #6c5cc3 40%, transparent 80%),
-              radial-gradient(circle at 20% 90%, #7c6fc0 0%, #42207f 50%, transparent 80%),
-              linear-gradient(135deg, #e4e8ff 0%, #6c5cc3 100%);
-  color: #1b1b2f;
-}
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
+      margin-top: 6px;
+    }
 
-body.light .calculator-highfeve {
-  background: rgba(255, 255, 255, 0.92);
-  border: 2px solid #6c5cc3;
-  box-shadow: 0 8px 32px 0 #7c6fc090;
-}
+    .btn {
+      background: var(--num-bg);
+      color: #dbeeff;
+      border: none;
+      padding: 15px;
+      font-size: 1.25rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: var(--font);
+      font-weight: 700;
+      box-shadow: var(--btn-shadow);
+      transition: background 0.18s, color 0.26s, transform 0.12s;
+      outline: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+      min-height: 0;
+      user-select: none;
+    }
 
-body.light .display {
-  background: linear-gradient(90deg, #e1e7ff 0%, #b0aee0 100%);
-  color: #1b1b2f;
-  border: 1.5px solid #9cb8ff;
-}
+    .btn:active {
+      transform: scale(0.94);
+    }
 
-body.light .btn {
-  background: #e1e7ff;
-  color: #1b1b2f;
-  box-shadow: 0 2px 10px #b0aee070;
-}
+    .btn:hover,
+    .btn:focus {
+      background: var(--btn-hover);
+      color: #1b1b2f;
+      box-shadow: 0 4px 20px #92c0ff80;
+      z-index: 10;
+    }
 
-body.light .btn:hover,
-body.light .btn:focus {
-  background: #b0aee0;
-  color: #1b1b2f;
-}
+    .btn.operator {
+      background: linear-gradient(90deg, #70a9e0 0%, #877dcf 100%);
+      color: #1b1b2f;
+      font-weight: bold;
+      box-shadow: 0 2px 12px #70a9e070;
+      font-size: 1.23rem;
+      transition: background 0.2s, color 0.2s;
+    }
 
-body.light .btn.operator {
-  background: linear-gradient(90deg, #7c6fc0 0%, #6c5cc3 100%);
-  color: #1b1b2f;
-  box-shadow: 0 2px 12px #6c5cc370;
-}
+    .btn.operator:hover,
+    .btn.operator:focus {
+      background: linear-gradient(90deg, #877dcf 0%, #70a9e0 100%);
+      color: #fff;
+      box-shadow: 0 4px 16px #877dcf90;
+    }
 
-body.light .btn.operator:hover,
-body.light .btn.operator:focus {
-  background: linear-gradient(90deg, #6c5cc3 0%, #7c6fc0 100%);
-  color: #fff;
-  box-shadow: 0 4px 16px #6c5cc390;
-}
+    .btn.clear {
+      background: linear-gradient(90deg, #e94e4e 0%, #877dcf 100%);
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 2px 12px #e94e4e80;
+      font-size: 1.13rem;
+    }
 
-body.light .btn.clear {
-  background: linear-gradient(90deg, #e94e4e 0%, #7c6fc0 100%);
-  color: #fff;
-  box-shadow: 0 2px 12px #e94e4e80;
-}
+    .btn.clear:hover,
+    .btn.clear:focus {
+      background: linear-gradient(90deg, #877dcf 0%, #e94e4e 100%);
+      color: #fff;
+      box-shadow: 0 4px 16px #e94e4e90;
+    }
 
-body.light .btn.clear:hover,
-body.light .btn.clear:focus {
-  background: linear-gradient(90deg, #7c6fc0 0%, #e94e4e 100%);
-  color: #fff;
-  box-shadow: 0 4px 16px #e94e4e90;
-}
+    .btn:last-child {
+      font-size: 1.4rem;
+    }
 
-body.light h1 {
-  text-shadow: 0 2px 14px #7c6fc045;
-}
-<style/>
+    /* Responsive Styles */
+    @media (max-width: 430px) {
+      .calculator-highfeve {
+        width: 98vw;
+        padding: 14px 4vw 12px 4vw;
+        border-radius: 16px;
+      }
+
+      .display {
+        font-size: 1.4rem;
+        min-height: 36px;
+        border-radius: 8px;
+        padding: 9px 7px;
+      }
+
+      h1 {
+        font-size: 1.15rem;
+        margin-bottom: 16px;
+      }
+
+      .theme-toggle {
+        padding: 7px 10px;
+        font-size: 0.95rem;
+        border-radius: 7px;
+        margin-bottom: 16px;
+      }
+
+      .btn {
+        font-size: 1.07rem;
+        padding: 12px 0;
+        border-radius: 8px;
+      }
+    }
+
+    /* Light Theme */
+    body.light {
+      background: radial-gradient(circle at 90% 10%, #d6e6ff 0%, #877dcf 40%, transparent 80%),
+        radial-gradient(circle at 20% 90%, #877dcf 0%, #2e2a5b 50%, transparent 80%), linear-gradient(135deg, #edf3ff 0%, #877dcf 100%);
+      color: #1b1b2f;
+    }
+
+    body.light .calculator-highfeve {
+      background: rgba(255, 255, 255, 0.85);
+      border: 2px solid #877dcf;
+      box-shadow: 0 8px 32px 0 #877dcf90;
+    }
+
+    body.light .display {
+      background: linear-gradient(90deg, #f0f4ff 0%, #c6bff1 100%);
+      color: #1b1b2f;
+      border: 1.5px solid #a3b7ff;
+    }
+
+    body.light .btn {
+      background: #f0f4ff;
+      color: #1b1b2f;
+      box-shadow: 0 2px 10px #c6bff170;
+    }
+
+    body.light .btn:hover,
+    body.light .btn:focus {
+      background: #c6bff1;
+      color: #1b1b2f;
+    }
+
+    body.light .btn.operator {
+      background: linear-gradient(90deg, #877dcf 0%, #6a5abb 100%);
+      color: #1b1b2f;
+      box-shadow: 0 2px 12px #6a5abb70;
+    }
+
+    body.light .btn.operator:hover,
+    body.light .btn.operator:focus {
+      background: linear-gradient(90deg, #6a5abb 0%, #877dcf 100%);
+      color: #fff;
+      box-shadow: 0 4px 16px #6a5abb90;
+    }
+
+    body.light .btn.clear {
+      background: linear-gradient(90deg, #e94e4e 0%, #877dcf 100%);
+      color: #fff;
+      box-shadow: 0 2px 12px #e94e4e80;
+    }
+
+    body.light .btn.clear:hover,
+    body.light .btn.clear:focus {
+      background: linear-gradient(90deg, #877dcf 0%, #e94e4e 100%);
+      color: #fff;
+      box-shadow: 0 4px 16px #e94e4e90;
+    }
+
+    body.light h1 {
+      background: linear-gradient(90deg, #70a9e0, #877dcf 70%);
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow: 0 2px 14px #877dcf45;
+    }
+  </style>
 </head>
 
 <body>
 
   <button class="theme-toggle" onclick="toggleTheme()">
-  <i class="fa-solid fa-moon"></i>
-  <span>Dark Mode</span>
-</button>
+    <i class="fa-solid fa-moon"></i>
+    <span>Dark Mode</span>
+  </button>
   <h1>Calculator by Aavesh</h1>
 
   <div class="calculator-highfeve">
@@ -216,59 +343,59 @@ body.light h1 {
   </div>
 
   <script>
-  let display = document.getElementById("display");
+    let display = document.getElementById("display");
 
-  function inputValue(val) {
-    if (display.innerText === "0" && val !== ".") {
-      display.innerText = val;
-    } else {
-      display.innerText += val;
+    function inputValue(val) {
+      if (display.innerText === "0" && val !== ".") {
+        display.innerText = val;
+      } else {
+        display.innerText += val;
+      }
     }
-  }
 
-  function clearDisplay() {
-    display.innerText = "0";
-  }
-
-  function backspace() {
-    if (display.innerText.length > 1) {
-      display.innerText = display.innerText.slice(0, -1);
-    } else {
+    function clearDisplay() {
       display.innerText = "0";
     }
-  }
 
-  function calculateResult() {
-    try {
-      let expression = display.innerText
-        .replace(/×/g, "*")
-        .replace(/÷/g, "/")
-        .replace(/−/g, "-");
-
-      let result = eval(expression);
-
-      if (result === Infinity || isNaN(result)) {
-        display.innerText = "Error";
+    function backspace() {
+      if (display.innerText.length > 1) {
+        display.innerText = display.innerText.slice(0, -1);
       } else {
-        display.innerText = result;
+        display.innerText = "0";
       }
-    } catch {
-      display.innerText = "Error";
     }
-  }
 
-  function toggleTheme() {
-    document.body.classList.toggle("light");
+    function calculateResult() {
+      try {
+        let expression = display.innerText
+          .replace(/×/g, "*")
+          .replace(/÷/g, "/")
+          .replace(/−/g, "-");
 
-    const btn = document.querySelector(".theme-toggle");
-    const isLight = document.body.classList.contains("light");
+        let result = eval(expression);
 
-    if (isLight) {
-      btn.innerHTML = `<i class="fa-solid fa-sun"></i> <span>Light Mode</span>`;
-    } else {
-      btn.innerHTML = `<i class="fa-solid fa-moon"></i> <span>Dark Mode</span>`;
+        if (result === Infinity || isNaN(result)) {
+          display.innerText = "Error";
+        } else {
+          display.innerText = result;
+        }
+      } catch {
+        display.innerText = "Error";
+      }
     }
-  }
+
+    function toggleTheme() {
+      document.body.classList.toggle("light");
+
+      const btn = document.querySelector(".theme-toggle");
+      const isLight = document.body.classList.contains("light");
+
+      if (isLight) {
+        btn.innerHTML = `<i class="fa-solid fa-sun"></i> <span>Light Mode</span>`;
+      } else {
+        btn.innerHTML = `<i class="fa-solid fa-moon"></i> <span>Dark Mode</span>`;
+      }
+    }
   </script>
 </body>
 
