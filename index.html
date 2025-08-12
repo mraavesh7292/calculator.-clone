@@ -307,10 +307,9 @@
 <body>
 
   <button class="theme-toggle" onclick="toggleTheme()">
-    <i class="fa-solid fa-moon"></i>
-    <span>Dark / Light</span>
-  </button>
-
+  <i class="fa-solid fa-moon"></i>
+  <span>Dark Mode</span>
+</button>
   <h1>Calculator by Aavesh</h1>
 
   <div class="calculator-highfeve">
@@ -344,51 +343,61 @@
   </div>
 
   <script>
-    let display = document.getElementById("display");
+  let display = document.getElementById("display");
 
-    function inputValue(val) {
-      if (display.innerText === "0" && val !== ".") {
-        display.innerText = val;
-      } else {
-        display.innerText += val;
-      }
+  function inputValue(val) {
+    if (display.innerText === "0" && val !== ".") {
+      display.innerText = val;
+    } else {
+      display.innerText += val;
     }
+  }
 
-    function clearDisplay() {
+  function clearDisplay() {
+    display.innerText = "0";
+  }
+
+  function backspace() {
+    if (display.innerText.length > 1) {
+      display.innerText = display.innerText.slice(0, -1);
+    } else {
       display.innerText = "0";
     }
+  }
 
-    function backspace() {
-      if (display.innerText.length > 1) {
-        display.innerText = display.innerText.slice(0, -1);
-      } else {
-        display.innerText = "0";
-      }
-    }
+  function calculateResult() {
+    try {
+      let expression = display.innerText
+        .replace(/×/g, "*")
+        .replace(/÷/g, "/")
+        .replace(/−/g, "-");
 
-    function calculateResult() {
-      try {
-        let expression = display.innerText
-          .replace(/×/g, "*")
-          .replace(/÷/g, "/")
-          .replace(/−/g, "-");
+      let result = eval(expression);
 
-        let result = eval(expression);
-
-        if (result === Infinity || isNaN(result)) {
-          display.innerText = "Error";
-        } else {
-          display.innerText = result;
-        }
-      } catch {
+      if (result === Infinity || isNaN(result)) {
         display.innerText = "Error";
+      } else {
+        display.innerText = result;
       }
+    } catch {
+      display.innerText = "Error";
     }
+  }
 
-    function toggleTheme() {
-      document.body.classList.toggle("light");
+  function toggleTheme() {
+    document.body.classList.toggle("light");
+
+    const btn = document.querySelector(".theme-toggle");
+    const isLight = document.body.classList.contains("light");
+
+    if (isLight) {
+      btn.innerHTML = `<i class="fa-solid fa-sun"></i> <span>Light Mode</span>`;
+    } else {
+      btn.innerHTML = `<i class="fa-solid fa-moon"></i> <span>Dark Mode</span>`;
     }
+  }
   </script>
 </body>
 
 </html>
+
