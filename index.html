@@ -2,30 +2,30 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Calculator by Aavesh</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Google Fonts and Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
     :root {
-      --main-bg: linear-gradient(135deg, #22203a 0%, #211c36 100%);
-      --main-glass: rgba(255,255,255,0.12);
-      --main-shadow: 0 8px 32px 0 rgba(68,88,144,0.25);
-      --main-border: 2.5px solid #5ad4fe30;
-      --accent: #7cf8f8;
-      --op: #ffb86c;
-      --error: #ff5c73;
-      --num-bg: rgba(255,255,255,0.17);
-      --btn-shadow: 0 2px 12px #1de9b650;
-      --btn-hover: #43e9d8;
+      --main-bg: linear-gradient(135deg, #5a2a83 0%, #2b4ca6 100%);
+      --main-glass: rgba(255, 255, 255, 0.15);
+      --main-shadow: 0 8px 32px 0 rgba(69, 85, 190, 0.35);
+      --main-border: 2.5px solid #b49eff50;
+      --accent: #9c7aff;
+      --op: #6de0ff;
+      --error: #ff4d6d;
+      --num-bg: rgba(255, 255, 255, 0.2);
+      --btn-shadow: 0 2px 12px #63d3ff80;
+      --btn-hover: #7df5ff;
       --font: 'Montserrat', Arial, sans-serif;
     }
+
     body {
-      background: radial-gradient(circle at 90% 10%, #7cf8f8 0%, #1de9b6 40%, transparent 80%),
-                  radial-gradient(circle at 20% 90%, #ffb86c 0%, #ff6e6e 25%, transparent 80%),
-                  var(--main-bg);
+      background: radial-gradient(circle at 90% 10%, #6de0ff 0%, #1f70ff 50%, transparent 80%),
+        radial-gradient(circle at 20% 90%, #ac7aff 0%, #42207f 50%, transparent 80%), var(--main-bg);
       font-family: var(--font);
       min-height: 100vh;
       margin: 0;
@@ -34,18 +34,20 @@
       align-items: center;
       justify-content: center;
       transition: background 0.7s;
+      color: #edf1f7;
     }
+
     .theme-toggle {
       margin-bottom: 26px;
       padding: 10px 20px;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(90deg, #1de9b6 0%, #43e9d8 100%);
-      color: #211c36;
+      background: linear-gradient(90deg, #6de0ff 0%, #42aaff 100%);
+      color: #1b1b2f;
       font-weight: 700;
       font-size: 1.1rem;
       letter-spacing: 1px;
-      box-shadow: 0 2px 12px #43e9d888;
+      box-shadow: 0 2px 12px #42aaff88;
       cursor: pointer;
       transition: background 0.3s, color 0.3s, transform 0.15s;
       outline: none;
@@ -53,13 +55,16 @@
       align-items: center;
       gap: 8px;
     }
-    .theme-toggle:hover, .theme-toggle:focus {
-      background: linear-gradient(90deg, #7cf8f8 0%, #ffb86c 100%);
+
+    .theme-toggle:hover,
+    .theme-toggle:focus {
+      background: linear-gradient(90deg, #ac7aff 0%, #7651ff 100%);
       color: #fff;
       transform: translateY(-2px) scale(1.05);
     }
+
     h1 {
-      background: linear-gradient(90deg, #43e9d8, #ffb86c 70%);
+      background: linear-gradient(90deg, #42aaff, #ac7aff 70%);
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
@@ -69,9 +74,10 @@
       margin-bottom: 32px;
       text-align: center;
       letter-spacing: 2px;
-      text-shadow: 0 2px 14px #7cf8f870;
+      text-shadow: 0 2px 14px #7651ff70;
       user-select: none;
     }
+
     .calculator-highfeve {
       background: var(--main-glass);
       border-radius: 28px;
@@ -84,17 +90,28 @@
       transition: background 0.3s;
       position: relative;
       z-index: 1;
-      /* Animation */
-      animation: pop-in 0.6s cubic-bezier(.55,1.4,.5,1) 1;
+      animation: pop-in 0.6s cubic-bezier(.55, 1.4, .5, 1) 1;
     }
+
     @keyframes pop-in {
-      0% { transform: scale(0.92) translateY(30px); opacity:0;}
-      80% { transform: scale(1.04) translateY(-6px);}
-      100% { transform: scale(1) translateY(0); opacity:1;}
+      0% {
+        transform: scale(0.92) translateY(30px);
+        opacity: 0;
+      }
+
+      80% {
+        transform: scale(1.04) translateY(-6px);
+      }
+
+      100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
     }
+
     .display {
-      background: linear-gradient(90deg, #313246 0%, #1de9b650 100%);
-      color: #fff;
+      background: linear-gradient(90deg, #3c3f6e 0%, #6de0ff40 100%);
+      color: #dff6ff;
       font-size: 2.4rem;
       font-family: var(--font);
       padding: 16px 12px;
@@ -104,21 +121,23 @@
       min-height: 56px;
       letter-spacing: 1px;
       word-break: break-all;
-      box-shadow: 0 2px 10px #1de9b640;
-      border: 1.5px solid #7cf8f850;
+      box-shadow: 0 2px 10px #6de0ff40;
+      border: 1.5px solid #9c7aff70;
       transition: background 0.3s, color 0.3s;
       font-weight: 700;
       user-select: all;
     }
+
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 13px;
       margin-top: 6px;
     }
+
     .btn {
       background: var(--num-bg);
-      color: #fff;
+      color: #dbeeff;
       border: none;
       padding: 15px;
       font-size: 1.25rem;
@@ -136,40 +155,50 @@
       min-height: 0;
       user-select: none;
     }
+
     .btn:active {
       transform: scale(0.94);
     }
-    .btn:hover, .btn:focus {
+
+    .btn:hover,
+    .btn:focus {
       background: var(--btn-hover);
-      color: #211c36;
-      box-shadow: 0 4px 20px #1de9b650;
-      z-index:10;
+      color: #1b1b2f;
+      box-shadow: 0 4px 20px #6de0ff80;
+      z-index: 10;
     }
+
     .btn.operator {
-      background: linear-gradient(90deg, #ffb86c 0%, #ff6e6e 100%);
-      color: #22203a;
+      background: linear-gradient(90deg, #6de0ff 0%, #7651ff 100%);
+      color: #1b1b2f;
       font-weight: bold;
-      box-shadow: 0 2px 12px #ffb86c70;
+      box-shadow: 0 2px 12px #6de0ff70;
       font-size: 1.23rem;
       transition: background 0.2s, color 0.2s;
     }
-    .btn.operator:hover, .btn.operator:focus {
-      background: linear-gradient(90deg, #ff6e6e 0%, #ffb86c 100%);
+
+    .btn.operator:hover,
+    .btn.operator:focus {
+      background: linear-gradient(90deg, #7651ff 0%, #6de0ff 100%);
       color: #fff;
-      box-shadow: 0 4px 16px #ffb86c90;
+      box-shadow: 0 4px 16px #7651ff90;
     }
+
     .btn.clear {
-      background: linear-gradient(90deg, #ff5c73 0%, #ffb86c 100%);
+      background: linear-gradient(90deg, #ff4d6d 0%, #7651ff 100%);
       color: #fff;
       font-weight: bold;
-      box-shadow: 0 2px 12px #ff5c7380;
+      box-shadow: 0 2px 12px #ff4d6d80;
       font-size: 1.13rem;
     }
-    .btn.clear:hover, .btn.clear:focus {
-      background: linear-gradient(90deg, #ffb86c 0%, #ff5c73 100%);
+
+    .btn.clear:hover,
+    .btn.clear:focus {
+      background: linear-gradient(90deg, #7651ff 0%, #ff4d6d 100%);
       color: #fff;
-      box-shadow: 0 4px 16px #ff5c7390;
+      box-shadow: 0 4px 16px #ff4d6d90;
     }
+
     .btn:last-child {
       font-size: 1.4rem;
     }
@@ -181,22 +210,26 @@
         padding: 14px 4vw 12px 4vw;
         border-radius: 16px;
       }
+
       .display {
         font-size: 1.4rem;
         min-height: 36px;
         border-radius: 8px;
         padding: 9px 7px;
       }
+
       h1 {
         font-size: 1.15rem;
         margin-bottom: 16px;
       }
+
       .theme-toggle {
         padding: 7px 10px;
         font-size: 0.95rem;
         border-radius: 7px;
         margin-bottom: 16px;
       }
+
       .btn {
         font-size: 1.07rem;
         padding: 12px 0;
@@ -206,57 +239,67 @@
 
     /* Light Theme */
     body.light {
-      background: radial-gradient(circle at 90% 10%, #ffeedd 0%, #b7ffd7 40%, transparent 80%),
-                  radial-gradient(circle at 20% 90%, #fff9c0 0%, #aef7ff 25%, transparent 80%),
-                  linear-gradient(135deg, #fff 0%, #b7ffd7 100%);
-      color: #22203a;
+      background: radial-gradient(circle at 90% 10%, #dbeeff 0%, #7651ff 40%, transparent 80%),
+        radial-gradient(circle at 20% 90%, #9c7aff 0%, #42207f 50%, transparent 80%), linear-gradient(135deg, #f3eaff 0%, #7651ff 100%);
+      color: #1b1b2f;
     }
+
     body.light .calculator-highfeve {
-      background: rgba(255,255,255,0.80);
-      border: 2px solid #b7ffd7;
+      background: rgba(255, 255, 255, 0.85);
+      border: 2px solid #7651ff;
+      box-shadow: 0 8px 32px 0 #9c7aff90;
     }
+
     body.light .display {
-      background: linear-gradient(90deg, #fffbe6 0%, #b7ffd7 100%);
-      color: #22203a;
+      background: linear-gradient(90deg, #f0e6ff 0%, #b49eff 100%);
+      color: #1b1b2f;
       border: 1.5px solid #aef7ff;
     }
+
     body.light .btn {
-      background: #f6f6ff;
-      color: #22203a;
-      box-shadow: 0 2px 10px #b7ffd730;
+      background: #f0e6ff;
+      color: #1b1b2f;
+      box-shadow: 0 2px 10px #b49eff70;
     }
-    body.light .btn:hover, body.light .btn:focus {
-      background: #b7ffd7;
-      color: #22203a;
+
+    body.light .btn:hover,
+    body.light .btn:focus {
+      background: #b49eff;
+      color: #1b1b2f;
     }
+
     body.light .btn.operator {
-      background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
-      color: #22203a;
-      box-shadow: 0 2px 12px #fda08570;
+      background: linear-gradient(90deg, #9c7aff 0%, #7651ff 100%);
+      color: #1b1b2f;
+      box-shadow: 0 2px 12px #7651ff70;
     }
+
     body.light .btn.operator:hover,
     body.light .btn.operator:focus {
-      background: linear-gradient(90deg, #fda085 0%, #f6d365 100%);
+      background: linear-gradient(90deg, #7651ff 0%, #9c7aff 100%);
       color: #fff;
-      box-shadow: 0 4px 16px #fda08590;
+      box-shadow: 0 4px 16px #7651ff90;
     }
+
     body.light .btn.clear {
-      background: linear-gradient(90deg, #ff5c73 0%, #f6d365 100%);
+      background: linear-gradient(90deg, #ff4d6d 0%, #9c7aff 100%);
       color: #fff;
-      box-shadow: 0 2px 12px #ff5c7380;
+      box-shadow: 0 2px 12px #ff4d6d80;
     }
+
     body.light .btn.clear:hover,
     body.light .btn.clear:focus {
-      background: linear-gradient(90deg, #f6d365 0%, #ff5c73 100%);
+      background: linear-gradient(90deg, #9c7aff 0%, #ff4d6d 100%);
       color: #fff;
-      box-shadow: 0 4px 16px #ff5c7390;
+      box-shadow: 0 4px 16px #ff4d6d90;
     }
+
     body.light h1 {
-      background: linear-gradient(90deg, #43e9d8, #ffb86c 70%);
+      background: linear-gradient(90deg, #42aaff, #ac7aff 70%);
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
-      text-shadow: 0 2px 14px #ffb86c45;
+      text-shadow: 0 2px 14px #ac7aff45;
     }
   </style>
 </head>
@@ -347,4 +390,5 @@
     }
   </script>
 </body>
+
 </html>
