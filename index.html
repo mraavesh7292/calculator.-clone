@@ -2,283 +2,269 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Calculator by Aavesh</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mechanical Calculator</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      background: #181b20;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.4s cubic-bezier(.4,0,.2,1);
+    :root{
+      --wood1:#6b4b2a;--wood2:#3e2a15;--wood3:#8b5a2b;
+      --metal1:#e5e7eb;--metal2:#c7c9ce;--metal3:#9aa0a6;--metal-edge:#5c636a;
+      --accent:#d97706;--op:#374151;--eq:#b91c1c;--text:#111827;--screen:#0a3d1a;--screen-glow:#4ade80;
+      --shadow: rgba(0,0,0,.35);
     }
-    .calculator-container {
-      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
-      border-radius: 32px;
-      background: linear-gradient(135deg, rgba(36,38,45,0.97) 65%, #23262b 100%);
-      padding: 2.8rem 2.2rem 2rem 2.2rem;
-      width: 370px;
-      max-width: 98vw;
-      display: flex;
-      flex-direction: column;
-      gap: 1.3rem;
-      border: 1px solid rgba(80,80,80,0.13);
-      transition: background 0.4s, box-shadow 0.4s;
-      position: relative;
-      overflow: hidden;
-    }
-    .calc-header {
-      font-size: 1.65rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-align: center;
-      margin-bottom: 0.4rem;
-      padding-bottom: 0.2rem;
-      background: linear-gradient(90deg, #ffe082 40%, #ff7f50 80%, #b983ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      text-shadow: 0 2px 14px rgba(0,0,0,0.18);
-      transition: color 0.4s, text-shadow 0.4s;
-      user-select: none;
-      border-bottom: 2px solid #ffe08233;
-    }
-    .premium-badge {
-      position: absolute;
-      top: 18px;
-      right: 25px;
-      background: linear-gradient(90deg, #ffe082 60%, #ff7f50 100%);
-      color: #23262b;
-      font-size: 0.83rem;
-      font-weight: 700;
-      padding: 0.25em 0.9em;
-      border-radius: 18px;
-      box-shadow: 0 2px 18px #ffe08244;
-      letter-spacing: 0.08em;
-      border: 1.5px solid #ffb347;
-      z-index: 2;
-      font-family: inherit;
-      filter: drop-shadow(0 2px 8px #ff7f502c);
-      text-shadow: none;
-      user-select: none;
-    }
-    .display {
-      background: rgba(0,0,0,0.11);
-      border-radius: 18px;
-      padding: 1.2rem;
-      font-size: 2.2rem;
-      color: #ffe082;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-      min-height: 3.5em;
-      letter-spacing: 0.06em;
-      text-align: right;
-      transition: background 0.4s, color 0.4s;
-      user-select: none;
-      font-weight: 600;
-    }
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.15rem;
-    }
-    button {
-      font-size: 1.3rem;
-      border: none;
-      border-radius: 14px;
-      padding: 1rem 0;
-      background: linear-gradient(180deg, #23262b 0%, #353a44 100%);
-      color: #ffe082;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.11);
-      transition: background 0.4s, color 0.4s, box-shadow 0.3s, transform 0.2s;
-      font-family: inherit;
-      outline: none;
-      font-weight: 500;
-    }
-    button:active {
-      background: #41444c;
-      box-shadow: none;
-      color: #ff7f50;
-      transform: scale(0.96);
-    }
-    .operator {
-      background: linear-gradient(180deg, #ff7f50 0%, #ffb347 100%);
-      color: #23262b;
-      font-weight: 700;
-      box-shadow: 0 2px 12px rgba(255,127,80,0.13);
-    }
-    .equals {
-      background: linear-gradient(90deg, #fa709a 0%, #fee140 100%);
-      color: #23262b;
-      font-weight: 700;
-      box-shadow: 0 2px 12px #fa709a33;
-    }
-    .theme-toggle {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      margin: 0 auto;
-      background: linear-gradient(90deg, #23262b 60%, #353a44 100%);
-      border: none;
-      color: #ffe082;
-      font-size: 1.09rem;
-      cursor: pointer;
-      transition: color 0.3s, background 0.4s;
-      padding: 0.5rem 1.2rem;
-      border-radius: 14px;
-      font-weight: 600;
-      box-shadow: 0 2px 8px #181b2022;
-      outline: none;
-    }
-    .theme-toggle:active {
-      color: #ff7f50;
-      background: #41444c;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: repeating-linear-gradient(45deg,var(--wood1) 0,var(--wood1) 10px,var(--wood2) 10px,var(--wood2) 20px), radial-gradient(circle at 20% 10%, rgba(255,255,255,.06), transparent 60%);
+      color:var(--text);
+      display:grid; place-items:center; padding:24px;
     }
 
-    /* Light mode styles */
-    body.light {
-      background: linear-gradient(135deg, #f0f4fa 0%, #e7ecf0 100%);
-      color: #23262b;
+    .calc-wrap{
+      position:relative;
+      width:min(92vw, 380px);
+      filter: drop-shadow(0 22px 32px var(--shadow));
+      perspective: 1200px;
     }
-    body.light .calculator-container {
-      background: linear-gradient(135deg, #fffbe9 70%, #f5f8fb 100%);
-      box-shadow: 0 12px 40px #b983ff33;
-      border: 1px solid #e0e7ef;
+
+    .calculator{
+      background: linear-gradient(160deg, var(--metal1), var(--metal2) 40%, var(--metal3));
+      border-radius:24px; padding:18px 18px 22px; border:1px solid var(--metal-edge);
+      box-shadow:
+        inset 0 2px 0 rgba(255,255,255,.6),
+        inset 0 -2px 0 rgba(0,0,0,.2),
+        0 10px 20px var(--shadow);
+      transform: rotateX(4deg) rotateY(-2deg);
     }
-    body.light .calc-header {
-      background: linear-gradient(90deg, #ffe082 40%, #ff7f50 80%, #b983ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      text-shadow: 0 2px 14px #b983ff22;
-      border-bottom: 2px solid #ffb34722;
+
+    .badge{
+      position:absolute; top:-12px; left:20px; font-size:12px; letter-spacing:.12em; color:#111;
+      background:linear-gradient(180deg,#fef3c7,#f59e0b); border:1px solid #b45309; border-radius:10px; padding:4px 10px;
+      box-shadow:0 6px 12px rgba(0,0,0,.25);
+      user-select:none;
     }
-    body.light .premium-badge {
-      background: linear-gradient(90deg, #ffe082 60%, #ff7f50 100%);
-      color: #23262b;
-      border: 1.5px solid #ffb347;
-      box-shadow: 0 2px 18px #ffe08244;
-      filter: drop-shadow(0 2px 8px #ff7f5033);
+
+    .screen{
+      background: radial-gradient(120% 140% at 10% 10%, rgba(255,255,255,.25), transparent 30%), #0b2b12;
+      border:1px solid #1f2937; border-radius:14px; height:84px; padding:10px 14px; margin-bottom:14px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.05), inset 0 8px 22px rgba(0,0,0,.6), inset 0 -6px 16px rgba(0,0,0,.55);
+      display:flex; flex-direction:column; justify-content:center; gap:6px;
+      color:#c7f9cc; text-shadow:0 0 8px var(--screen-glow), 0 0 2px #9ef01a;
+      overflow:hidden;
     }
-    body.light .display {
-      background: rgba(220,228,240, 0.7);
-      color: #ff7f50;
-      box-shadow: 0 1px 4px #b983ff18;
+    .screen .history{opacity:.6; font: 600 14px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .screen .value{font:700 34px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; display:flex; justify-content:flex-end; align-items:flex-end;}
+    .screen .value span{display:inline-block; transform-origin: bottom; animation: flipIn .22s ease both}
+    @keyframes flipIn{from{transform: rotateX(90deg); opacity:.2} to{transform: rotateX(0); opacity:1}}
+
+    .keygrid{display:grid; grid-template-columns: repeat(4, 1fr); gap:12px}
+
+    .key{
+      position:relative; height:56px; border-radius:14px; font-weight:800; font-size:18px; letter-spacing:.02em;
+      border:1px solid #222; cursor:pointer; user-select:none;
+      background: linear-gradient(180deg, #d1d5db, #9ca3af); color:#111;
+      box-shadow: 0 6px 0 #111, 0 10px 16px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.7);
+      display:flex; align-items:center; justify-content:center;
+      transition: transform .06s ease, box-shadow .06s ease, filter .2s ease;
     }
-    body.light button {
-      background: linear-gradient(180deg, #f5f8fb 0%, #ffe082 100%);
-      color: #23262b;
-      box-shadow: 0 2px 8px #b983ff18;
+    .key.op { background: linear-gradient(180deg, #9aa0a6, #6b7280); color:#f9fafb }
+    .key.fn { background: linear-gradient(180deg, #fcd34d, #f59e0b) }
+    .key.eq { background: linear-gradient(180deg, #ef4444, #991b1b); color:#fff }
+
+    .key:active, .key.pressed{
+      transform: translateY(4px) scale(.99) rotateX(1.5deg);
+      box-shadow: 0 2px 0 #111, 0 6px 10px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.5);
+      filter: brightness(.98);
     }
-    body.light button:active {
-      background: #ffe082;
-      color: #ff7f50;
+
+    .key.wobble{ animation: wob .18s ease-out }
+    @keyframes wob{ 0%{transform: translateY(0) rotateZ(0)} 35%{transform: translateY(1px) rotateZ(-.8deg)} 70%{transform: translateY(0) rotateZ(.6deg)} 100%{transform: none}}
+
+    .row-span-2{ grid-row: span 2 / span 2 }
+    .col-span-2{ grid-column: span 2 / span 2 }
+
+    .footer{
+      margin-top:12px; font-size:12px; text-align:center; color:#111; opacity:.75; user-select:none
     }
-    body.light .operator {
-      background: linear-gradient(180deg, #ffe082 0%, #ffb347 100%);
-      color: #23262b;
-      box-shadow: 0 2px 12px #ffe0821a;
+    .screw{
+      width:14px;height:14px; border-radius:50%; background: radial-gradient(circle at 30% 30%, #fff, #aaa 30%, #444 65%);
+      position:absolute; filter: drop-shadow(0 2px 2px rgba(0,0,0,.3));
     }
-    body.light .equals {
-      background: linear-gradient(90deg, #f7c4e0 0%, #ffe87a 100%);
-      color: #23262b;
-      box-shadow: 0 2px 12px #ffe87a33;
-    }
-    body.light .theme-toggle {
-      color: #ff7f50;
-      background: linear-gradient(90deg, #f5f8fb 60%, #ffe082 100%);
-      border: 1px solid #e0e7ef;
-      box-shadow: 0 2px 8px #ffe08233;
-    }
-    body.light .theme-toggle:active {
-      color: #ffe082;
-      background: #ffe082;
+    .screw.tl{top:10px; left:10px}
+    .screw.tr{top:10px; right:10px}
+    .screw.bl{bottom:10px; left:10px}
+    .screw.br{bottom:10px; right:10px}
+
+    /* Responsive tweaks */
+    @media (max-width: 380px){
+      .key{height:52px; font-size:17px}
+      .screen{height:78px}
+      .screen .value{font-size:30px}
     }
   </style>
 </head>
 <body>
-  <div class="calculator-container">
-    <div class="premium-badge">Premium</div>
-    <div class="calc-header">Calculator by Aavesh</div>
-    <div class="display" id="display">0</div>
-    <div class="buttons">
-      <button onclick="clearDisplay()">C</button>
-      <button onclick="backspace()">⌫</button>
-      <button class="operator" onclick="insert('÷')">÷</button>
-      <button class="operator" onclick="insert('×')">×</button>
-      <button onclick="insert('7')">7</button>
-      <button onclick="insert('8')">8</button>
-      <button onclick="insert('9')">9</button>
-      <button class="operator" onclick="insert('−')">−</button>
-      <button onclick="insert('4')">4</button>
-      <button onclick="insert('5')">5</button>
-      <button onclick="insert('6')">6</button>
-      <button class="operator" onclick="insert('+')">+</button>
-      <button onclick="insert('1')">1</button>
-      <button onclick="insert('2')">2</button>
-      <button onclick="insert('3')">3</button>
-      <button class="equals" onclick="calculateResult()">=</button>
-      <button style="grid-column: span 2;" onclick="insert('0')">0</button>
-      <button onclick="insert('.')">.</button>
+  <h1>Calculator by Aavesh</h1>
+  <div class="calc-wrap">
+    <div class="badge">MECHANICAL SERIES</div>
+    <div class="calculator" role="application" aria-label="Mechanical calculator">
+      <div class="screw tl" aria-hidden="true"></div>
+      <div class="screw tr" aria-hidden="true"></div>
+      <div class="screen" aria-live="polite">
+        <div class="history" id="history"> </div>
+        <div class="value" id="display">0</div>
+      </div>
+      <div class="keygrid" id="keys">
+        <button class="key fn" data-key="C" aria-label="Clear">C</button>
+        <button class="key fn" data-key="⌫" aria-label="Backspace">⌫</button>
+        <button class="key fn" data-key="%" aria-label="Percent">%</button>
+        <button class="key op" data-key="/" aria-label="Divide">÷</button>
+
+        <button class="key" data-key="7">7</button>
+        <button class="key" data-key="8">8</button>
+        <button class="key" data-key="9">9</button>
+        <button class="key op" data-key="*" aria-label="Multiply">×</button>
+
+        <button class="key" data-key="4">4</button>
+        <button class="key" data-key="5">5</button>
+        <button class="key" data-key="6">6</button>
+        <button class="key op" data-key="-" aria-label="Subtract">−</button>
+
+        <button class="key" data-key="1">1</button>
+        <button class="key" data-key="2">2</button>
+        <button class="key" data-key="3">3</button>
+        <button class="key op" data-key="+" aria-label="Add">+</button>
+
+        <button class="key col-span-2" data-key="0">0</button>
+        <button class="key" data-key=".">.</button>
+        <button class="key eq" data-key="=" aria-label="Equals">=</button>
+      </div>
+      <div class="screw bl" aria-hidden="true"></div>
+      <div class="screw br" aria-hidden="true"></div>
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()">
-      <i class="fa-solid fa-moon"></i> <span>Dark Mode</span>
-    </button>
+    <div class="footer">Keyboard: 0–9 • + − × ÷ • Enter= = • Backspace= ⌫ • Esc=C</div>
   </div>
+
   <script>
-    const display = document.getElementById("display");
-    function insert(value) {
-      if (display.innerText === "0" || display.innerText === "Error") {
-        display.innerText = value;
-      } else {
-        display.innerText += value;
+    // Simple mechanical click using Web Audio (no external files)
+    let audioCtx;
+    function clickSound(){
+      try{
+        audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = 'square'; o.frequency.value = 220;
+        g.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.06);
+        o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.07);
+      }catch(e){}
+    }
+
+    const display = document.getElementById('display');
+    const history = document.getElementById('history');
+    const keys = document.getElementById('keys');
+
+    let current = '0';
+    let previous = null;
+    let operator = null;
+    let justEvaluated = false;
+
+    function updateDisplay(){
+      // Flip-in animation for last char
+      display.innerHTML = '';
+      const text = current;
+      // limit digits for overflow
+      const maxLen = 14;
+      let trimmed = text;
+      if (text.replace('-', '').length > maxLen){
+        // switch to exponential if too long
+        const num = Number(text);
+        trimmed = isFinite(num) ? num.toExponential(6) : 'Error';
+      }
+      for(const ch of trimmed.toString()){
+        const span = document.createElement('span');
+        span.textContent = ch; display.appendChild(span);
       }
     }
-    function clearDisplay() {
-      display.innerText = "0";
+
+    function setHistory(){
+      history.textContent = `${previous!==null ? previous : ''} ${operator? operatorSymbol(operator): ''}`.trim();
     }
-    function backspace() {
-      let txt = display.innerText;
-      if (txt.length > 1 && txt !== "Error") {
-        display.innerText = txt.slice(0, -1);
-      } else {
-        display.innerText = "0";
+
+    function operatorSymbol(op){
+      return op === '*' ? '×' : op === '/' ? '÷' : op;
+    }
+
+    function press(key, fromKeyboard=false){
+      const btn = [...document.querySelectorAll('.key')].find(b => b.dataset.key===key);
+      if(btn){
+        btn.classList.add('pressed','wobble');
+        setTimeout(()=>btn.classList.remove('pressed'),100);
+        setTimeout(()=>btn.classList.remove('wobble'),200);
       }
-    }
-    function calculateResult() {
-      try {
-        let expression = display.innerText
-          .replace(/×/g, "*")
-          .replace(/÷/g, "/")
-          .replace(/−/g, "-");
-        let result = eval(expression);
-        if (result === Infinity || isNaN(result)) {
-          display.innerText = "Error";
-        } else {
-          display.innerText = result;
+      clickSound();
+
+      if (/^[0-9]$/.test(key)){
+        if (current === '0' || justEvaluated){ current = key; justEvaluated=false; }
+        else { current += key; }
+      } else if (key === '.'){
+        if (justEvaluated){ current = '0.'; justEvaluated=false; return updateDisplay(); }
+        if (!current.includes('.')) current += '.';
+      } else if (['+','-','*','/'].includes(key)){
+        if (previous !== null && operator && !justEvaluated){
+          current = compute(previous, current, operator);
         }
-      } catch {
-        display.innerText = "Error";
+        previous = current; operator = key; current = '0'; justEvaluated=false; setHistory();
+      } else if (key === '='){
+        if (operator && previous !== null){
+          current = compute(previous, current, operator);
+          previous = null; operator = null; justEvaluated=true; setHistory();
+        }
+      } else if (key === 'C'){
+        current = '0'; previous=null; operator=null; justEvaluated=false; setHistory();
+      } else if (key === '⌫'){
+        if (justEvaluated){ current='0'; justEvaluated=false; }
+        else current = current.length>1 ? current.slice(0,-1) : '0';
+      } else if (key === '%'){
+        const num = Number(current);
+        if (isFinite(num)) current = (num/100).toString();
       }
+      updateDisplay();
     }
-    function toggleTheme() {
-      document.body.classList.toggle("light");
-      const btn = document.querySelector(".theme-toggle");
-      const isLight = document.body.classList.contains("light");
-      if (isLight) {
-        btn.innerHTML = `<i class="fa-solid fa-sun"></i> <span>Light Mode</span>`;
-      } else {
-        btn.innerHTML = `<i class="fa-solid fa-moon"></i> <span>Dark Mode</span>`;
+
+    function compute(aStr, bStr, op){
+      const a = Number(aStr); const b = Number(bStr);
+      let res = 0;
+      switch(op){
+        case '+': res = a + b; break;
+        case '-': res = a - b; break;
+        case '*': res = a * b; break;
+        case '/': res = b===0 ? NaN : a / b; break;
       }
+      if (!isFinite(res)) return 'Error';
+      // Trim trailing zeros
+      const out = parseFloat(res.toFixed(12)).toString();
+      return out;
     }
+
+    // Mouse / touch
+    keys.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.key'); if(!btn) return;
+      press(btn.dataset.key);
+    });
+
+    // Keyboard support
+    const allowed = new Set(['0','1','2','3','4','5','6','7','8','9','.','+','-','*','/','%']);
+    window.addEventListener('keydown', (e)=>{
+      if (e.key === 'Enter' || e.key === '='){ e.preventDefault(); press('='); return; }
+      if (e.key === 'Escape'){ e.preventDefault(); press('C'); return; }
+      if (e.key === 'Backspace'){ e.preventDefault(); press('⌫'); return; }
+      if (allowed.has(e.key)) { e.preventDefault(); press(e.key, true); }
+    });
+
+    // Init
+    updateDisplay(); setHistory();
   </script>
 </body>
 </html>
+
