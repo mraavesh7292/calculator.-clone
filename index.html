@@ -1,283 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Calculator by Aavesh</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <meta charset="UTF-8">
+  <title>Mechanical Calculator</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      background: #181b20;
-      color: #fff;
-      min-height: 100vh;
+      background: #ece2d0;
+      font-family: 'Courier New', Courier, monospace;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.4s cubic-bezier(.4,0,.2,1);
+      height: 100vh;
+      margin: 0;
     }
-    .calculator-container {
-      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
-      border-radius: 32px;
-      background: linear-gradient(135deg, rgba(36,38,45,0.97) 65%, #23262b 100%);
-      padding: 2.8rem 2.2rem 2rem 2.2rem;
-      width: 370px;
-      max-width: 98vw;
-      display: flex;
-      flex-direction: column;
-      gap: 1.3rem;
-      border: 1px solid rgba(80,80,80,0.13);
-      transition: background 0.4s, box-shadow 0.4s;
-      position: relative;
-      overflow: hidden;
+    .mechanical-calculator {
+      background: #b8a078;
+      border: 8px solid #8d6b3a;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(80,60,30,0.2);
+      padding: 32px 24px;
+      width: 340px;
     }
-    .calc-header {
-      font-size: 1.65rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-align: center;
-      margin-bottom: 0.4rem;
-      padding-bottom: 0.2rem;
-      background: linear-gradient(90deg, #ffe082 40%, #ff7f50 80%, #b983ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      text-shadow: 0 2px 14px rgba(0,0,0,0.18);
-      transition: color 0.4s, text-shadow 0.4s;
-      user-select: none;
-      border-bottom: 2px solid #ffe08233;
-    }
-    .premium-badge {
-      position: absolute;
-      top: 18px;
-      right: 25px;
-      background: linear-gradient(90deg, #ffe082 60%, #ff7f50 100%);
-      color: #23262b;
-      font-size: 0.83rem;
-      font-weight: 700;
-      padding: 0.25em 0.9em;
-      border-radius: 18px;
-      box-shadow: 0 2px 18px #ffe08244;
-      letter-spacing: 0.08em;
-      border: 1.5px solid #ffb347;
-      z-index: 2;
-      font-family: inherit;
-      filter: drop-shadow(0 2px 8px #ff7f502c);
-      text-shadow: none;
-      user-select: none;
-    }
-    .display {
-      background: rgba(0,0,0,0.11);
-      border-radius: 18px;
-      padding: 1.2rem;
-      font-size: 2.2rem;
-      color: #ffe082;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-      min-height: 3.5em;
-      letter-spacing: 0.06em;
+    #m-display {
+      width: 100%;
+      height: 60px;
+      font-size: 2em;
+      margin-bottom: 22px;
+      border: 3px inset #a6895c;
+      border-radius: 6px;
+      background: #e8d9bc;
+      color: #544210;
+      padding: 0 14px;
       text-align: right;
-      transition: background 0.4s, color 0.4s;
-      user-select: none;
-      font-weight: 600;
+      letter-spacing: 2px;
+      font-family: 'Courier New', Courier, monospace;
     }
-    .buttons {
+    .m-buttons {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.15rem;
+      grid-template-columns: repeat(4, 68px);
+      gap: 12px;
     }
     button {
-      font-size: 1.3rem;
-      border: none;
-      border-radius: 14px;
-      padding: 1rem 0;
-      background: linear-gradient(180deg, #23262b 0%, #353a44 100%);
-      color: #ffe082;
+      background: #e4c590;
+      border: 2px solid #b8995d;
+      border-radius: 8px;
+      color: #5b4512;
+      font-size: 1.3em;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 18px 0;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.11);
-      transition: background 0.4s, color 0.4s, box-shadow 0.3s, transform 0.2s;
-      font-family: inherit;
-      outline: none;
-      font-weight: 500;
+      box-shadow: 0 2px 0 #a6895c;
+      transition: background 0.2s, transform 0.1s;
     }
     button:active {
-      background: #41444c;
-      box-shadow: none;
-      color: #ff7f50;
-      transform: scale(0.96);
+      background: #ccb07c;
+      transform: translateY(2px);
     }
-    .operator {
-      background: linear-gradient(180deg, #ff7f50 0%, #ffb347 100%);
-      color: #23262b;
-      font-weight: 700;
-      box-shadow: 0 2px 12px rgba(255,127,80,0.13);
+    button.m-equal {
+      background: #c14c36;
+      color: #fff;
+      border-color: #96402c;
     }
-    .equals {
-      background: linear-gradient(90deg, #fa709a 0%, #fee140 100%);
-      color: #23262b;
-      font-weight: 700;
-      box-shadow: 0 2px 12px #fa709a33;
+    button.m-equal:active {
+      background: #a63b22;
     }
-    .theme-toggle {
+    button.m-zero {
+      grid-column: span 2;
+    }
+    .lever {
+      width: 100%;
       display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      margin: 0 auto;
-      background: linear-gradient(90deg, #23262b 60%, #353a44 100%);
-      border: none;
-      color: #ffe082;
-      font-size: 1.09rem;
+      justify-content: center;
+      margin: 18px 0 0 0;
+    }
+    .lever-btn {
+      width: 48px;
+      height: 20px;
+      background: #e8d9bc;
+      border: 2px solid #b8995d;
+      border-radius: 10px;
+      margin: 0 5px;
+      font-size: 1em;
+      color: #7d5a24;
       cursor: pointer;
-      transition: color 0.3s, background 0.4s;
-      padding: 0.5rem 1.2rem;
-      border-radius: 14px;
-      font-weight: 600;
-      box-shadow: 0 2px 8px #181b2022;
-      outline: none;
+      box-shadow: 0 2px 0 #a6895c;
+      transition: background 0.2s;
     }
-    .theme-toggle:active {
-      color: #ff7f50;
-      background: #41444c;
+    .lever-btn:active {
+      background: #ccb07c;
     }
-
-    /* Light mode styles */
-    body.light {
-      background: linear-gradient(135deg, #f0f4fa 0%, #e7ecf0 100%);
-      color: #23262b;
-    }
-    body.light .calculator-container {
-      background: linear-gradient(135deg, #fffbe9 70%, #f5f8fb 100%);
-      box-shadow: 0 12px 40px #b983ff33;
-      border: 1px solid #e0e7ef;
-    }
-    body.light .calc-header {
-      background: linear-gradient(90deg, #ffe082 40%, #ff7f50 80%, #b983ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      text-shadow: 0 2px 14px #b983ff22;
-      border-bottom: 2px solid #ffb34722;
-    }
-    body.light .premium-badge {
-      background: linear-gradient(90deg, #ffe082 60%, #ff7f50 100%);
-      color: #23262b;
-      border: 1.5px solid #ffb347;
-      box-shadow: 0 2px 18px #ffe08244;
-      filter: drop-shadow(0 2px 8px #ff7f5033);
-    }
-    body.light .display {
-      background: rgba(220,228,240, 0.7);
-      color: #ff7f50;
-      box-shadow: 0 1px 4px #b983ff18;
-    }
-    body.light button {
-      background: linear-gradient(180deg, #f5f8fb 0%, #ffe082 100%);
-      color: #23262b;
-      box-shadow: 0 2px 8px #b983ff18;
-    }
-    body.light button:active {
-      background: #ffe082;
-      color: #ff7f50;
-    }
-    body.light .operator {
-      background: linear-gradient(180deg, #ffe082 0%, #ffb347 100%);
-      color: #23262b;
-      box-shadow: 0 2px 12px #ffe0821a;
-    }
-    body.light .equals {
-      background: linear-gradient(90deg, #f7c4e0 0%, #ffe87a 100%);
-      color: #23262b;
-      box-shadow: 0 2px 12px #ffe87a33;
-    }
-    body.light .theme-toggle {
-      color: #ff7f50;
-      background: linear-gradient(90deg, #f5f8fb 60%, #ffe082 100%);
-      border: 1px solid #e0e7ef;
-      box-shadow: 0 2px 8px #ffe08233;
-    }
-    body.light .theme-toggle:active {
-      color: #ffe082;
-      background: #ffe082;
+    .lever-label {
+      font-size: 1em;
+      color: #5b4512;
+      margin: 0 6px 0 0;
+      font-family: 'Courier New', Courier, monospace;
     }
   </style>
 </head>
 <body>
-  <div class="calculator-container">
-    <div class="premium-badge">Premium</div>
-    <div class="calc-header">Calculator by Aavesh</div>
-    <div class="display" id="display">0</div>
-    <div class="buttons">
-      <button onclick="clearDisplay()">C</button>
-      <button onclick="backspace()">⌫</button>
-      <button class="operator" onclick="insert('÷')">÷</button>
-      <button class="operator" onclick="insert('×')">×</button>
-      <button onclick="insert('7')">7</button>
-      <button onclick="insert('8')">8</button>
-      <button onclick="insert('9')">9</button>
-      <button class="operator" onclick="insert('−')">−</button>
-      <button onclick="insert('4')">4</button>
-      <button onclick="insert('5')">5</button>
-      <button onclick="insert('6')">6</button>
-      <button class="operator" onclick="insert('+')">+</button>
-      <button onclick="insert('1')">1</button>
-      <button onclick="insert('2')">2</button>
-      <button onclick="insert('3')">3</button>
-      <button class="equals" onclick="calculateResult()">=</button>
-      <button style="grid-column: span 2;" onclick="insert('0')">0</button>
-      <button onclick="insert('.')">.</button>
+  <div class="mechanical-calculator">
+    <input type="text" id="m-display" readonly>
+    <div class="m-buttons">
+      <button onclick="mClearDisplay()">C</button>
+      <button onclick="mDeleteLast()">⌫</button>
+      <button onclick="mAppendValue('%')">%</button>
+      <button onclick="mAppendValue('/')">÷</button>
+
+      <button onclick="mAppendValue('7')">7</button>
+      <button onclick="mAppendValue('8')">8</button>
+      <button onclick="mAppendValue('9')">9</button>
+      <button onclick="mAppendValue('*')">×</button>
+
+      <button onclick="mAppendValue('4')">4</button>
+      <button onclick="mAppendValue('5')">5</button>
+      <button onclick="mAppendValue('6')">6</button>
+      <button onclick="mAppendValue('-')">−</button>
+
+      <button onclick="mAppendValue('1')">1</button>
+      <button onclick="mAppendValue('2')">2</button>
+      <button onclick="mAppendValue('3')">3</button>
+      <button onclick="mAppendValue('+')">+</button>
+
+      <button onclick="mAppendValue('0')" class="m-zero">0</button>
+      <button onclick="mAppendValue('.')">.</button>
+      <button onclick="mCalculateResult()" class="m-equal">=</button>
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()">
-      <i class="fa-solid fa-moon"></i> <span>Dark Mode</span>
-    </button>
+    <div class="lever">
+      <span class="lever-label">Pull lever to calculate:</span>
+      <button class="lever-btn" onclick="mCalculateResult()">⏎</button>
+    </div>
   </div>
+
   <script>
-    const display = document.getElementById("display");
-    function insert(value) {
-      if (display.innerText === "0" || display.innerText === "Error") {
-        display.innerText = value;
-      } else {
-        display.innerText += value;
-      }
+    const mDisplay = document.getElementById('m-display');
+    let audioCtx = null;
+
+    function mAppendValue(value) {
+      mDisplay.value += value;
+      mPlayClick();
     }
-    function clearDisplay() {
-      display.innerText = "0";
+    function mClearDisplay() {
+      mDisplay.value = '';
+      mPlayClick();
     }
-    function backspace() {
-      let txt = display.innerText;
-      if (txt.length > 1 && txt !== "Error") {
-        display.innerText = txt.slice(0, -1);
-      } else {
-        display.innerText = "0";
-      }
+    function mDeleteLast() {
+      mDisplay.value = mDisplay.value.slice(0, -1);
+      mPlayClick();
     }
-    function calculateResult() {
+
+    function mCalculateResult() {
+      let expression = mDisplay.value;
+
+      // Simple % handling: "50%" becomes (50/100)
+      expression = expression.replace(/(\d+)%/g, "($1/100)");
+
       try {
-        let expression = display.innerText
-          .replace(/×/g, "*")
-          .replace(/÷/g, "/")
-          .replace(/−/g, "-");
-        let result = eval(expression);
-        if (result === Infinity || isNaN(result)) {
-          display.innerText = "Error";
-        } else {
-          display.innerText = result;
-        }
+        let result = Function('"use strict"; return (' + expression + ')')();
+        mDisplay.value = (result !== undefined) ? result : '';
+        mPlayLever();
       } catch {
-        display.innerText = "Error";
+        mDisplay.value = 'Error';
+        mPlayLever();
       }
     }
-    function toggleTheme() {
-      document.body.classList.toggle("light");
-      const btn = document.querySelector(".theme-toggle");
-      const isLight = document.body.classList.contains("light");
-      if (isLight) {
-        btn.innerHTML = `<i class="fa-solid fa-sun"></i> <span>Light Mode</span>`;
-      } else {
-        btn.innerHTML = `<i class="fa-solid fa-moon"></i> <span>Dark Mode</span>`;
+
+    // Initialize AudioContext lazily
+    function getCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
+      return audioCtx;
+    }
+
+    // Mechanical click sound
+    function mPlayClick() {
+      let ctx = getCtx();
+      let o = ctx.createOscillator();
+      let g = ctx.createGain();
+      o.type = 'square';
+      o.frequency.value = 650;
+      g.gain.value = 0.12;
+      o.connect(g).connect(ctx.destination);
+      o.start();
+      o.stop(ctx.currentTime + 0.08);
+    }
+
+    // Lever sound (lower pitch "ka-chunk")
+    function mPlayLever() {
+      let ctx = getCtx();
+      let o = ctx.createOscillator();
+      let g = ctx.createGain();
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(140, ctx.currentTime);
+      g.gain.setValueAtTime(0.19, ctx.currentTime);
+      o.connect(g).connect(ctx.destination);
+      o.start();
+      o.frequency.linearRampToValueAtTime(90, ctx.currentTime + 0.12);
+      o.stop(ctx.currentTime + 0.22);
     }
   </script>
 </body>
